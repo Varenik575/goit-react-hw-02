@@ -12,14 +12,12 @@ const [options, setOption] = useState(() => {
   const savedFeedback = JSON.parse(window.localStorage.getItem("saved-feedback"));
   console.log(savedFeedback.options);
 
-if((savedFeedback.options.good !== 0) || 
-(savedFeedback.options.neutral !== 0) || 
-(savedFeedback.options.bad !== 0)) 
+if((savedFeedback.options.good !== null) || 
+(savedFeedback.options.neutral !== null) || 
+(savedFeedback.options.bad !== null)) 
 {
 return savedFeedback.options;
-}
-  
-return ({
+} else return ({
   good: 0,
   neutral: 0,
   bad: 0
