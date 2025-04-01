@@ -1,16 +1,13 @@
 
 
-const Feedback = ({good, neutral, bad}) => {
-
-    let totalFeedback = good + neutral + bad;
-
+const Feedback = ({good, neutral, bad, total}) => {
     return (
 <ul>
     <li>Good: {good}</li>
     <li>Neutral: {neutral}</li>
     <li>Bad: {bad}</li>
-    <li>Total:{totalFeedback}</li>
-    <li>Positive: {Math.round((good / totalFeedback) * 100)}%</li>
+    <li>Total:{total}</li>
+    <li>Positive: {Math.round((good / total) * 100)}%</li>
 </ul>)
 }
 
