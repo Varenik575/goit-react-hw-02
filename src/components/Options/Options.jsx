@@ -1,18 +1,19 @@
 import styles from './Options.module.css';
 
-const Options = ({onClickGood, onClickNeutral, onClickBad, total, reset}) => {
+
+const Options = ({onClickFunc, total}) => {
 
     const renderReset = (total) => {
         if(total){
-            return (<button onClick={reset}>Reset</button>);
+            return (<button onClick={() => onClickFunc('reset')}>Reset</button>);
         }
     }
 
     return (
         <div className={styles.wrapper}>
-            <button onClick={onClickGood}>Good</button>
-            <button onClick={onClickNeutral}>Neutral</button>
-            <button onClick={onClickBad}>Bad</button>
+            <button onClick={() => onClickFunc('good')}>Good</button>
+            <button onClick={() => onClickFunc('neutral')}>Neutral</button>
+            <button onClick={() => onClickFunc('bad')}>Bad</button>
             {renderReset(total)}
             
        {/*    <button>Reset</button>  */}

@@ -21,36 +21,25 @@ return savedFeedback.options;
   bad: 0
 })})
 
+const updateFeedback = (feedbackType) => {
+  switch(feedbackType){
+    case('good'):
+    setOption({...options, good: options.good + 1});
+    break;
+    case('neutral'):
+    setOption({...options, neutral: options.neutral + 1});
+    break;
+    case('bad'):
+    setOption({...options, bad: options.bad + 1});
+    break;
+    case('reset'):
+    setOption({...options, good: 0, neutral:0, bad: 0 });
+    break;
+  }
+ }
+
 const totalFeedback = options.good + options.neutral + options.bad;
-
-const handleClickGood = () => {
-  setOption({...options, good: options.good + 1})
-};
-
-const handleClickNeutral = () => {
-  setOption({...options, neutral: options.neutral + 1})
-};
-
-const handleCLickBad = () => {
-  setOption({...options, bad: options.bad + 1})
-};
-
-const handleClickReset = () => {
-  setOption({...options, good: 0, neutral:0, bad: 0 })
-}
-
-const conditionalFeedback = (total) => {
-
- if (total) {
-  return (
-  <Feedback
-    good = {options.good}
-    neutral = {options.neutral}
-    bad = {options.bad}
-    total={total}
-    />);
- } else return <Notification/>
-}
+const positiveFeedback = Math.round((options.good / totalFeedback) * 100);
 
 useEffect(() => {
   window.localStorage.setItem("saved-feedback", JSON.stringify({options}))}, [options]);
@@ -61,15 +50,16 @@ useEffect(() => {
 <Description/>
 
  <Options 
- onClickGood = {handleClickGood} 
- onClickNeutral = {handleClickNeutral} 
- onClickBad = {handleCLickBad}
- total = {totalFeedback}
- reset = {handleClickReset}
+ onClickFunc={updateFeedback}
+ total={totalFeedback}/>
 
- />
-
- {conditionalFeedback(totalFeedback)}
+{totalFeedback ? <Feedback
+good={options.good}
+neutral={options.neutral}
+bad={options.bad}
+total={totalFeedback}
+positive={positiveFeedback}
+/> : <Notification/>}
 
 </div>
      </>
